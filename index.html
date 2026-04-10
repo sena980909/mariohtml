@@ -431,41 +431,42 @@ const goombaSquished = createSpriteCanvas(16, 8, cx => {
 
 // --- Koopa Sprites (16x24, NES-faithful: big shell + head underneath) ---
 function drawKoopaWalk(cx, frame) {
-  const _ = null, G='#00A800', L='#58D854', D='#005800', Y='#F8D830', W='#F8F8F8', N='#000', K='#D8A038', O='#C84C0C';
-  // Shell: rows 0-11, Head/body: rows 12-17, Feet: rows 18-21
+  const _ = null, G='#00A800', L='#58D854', D='#005800', Y='#F8D878', W='#F8F8F8', N='#000', K='#D8A038', O='#C84C0C';
+  // NES-faithful Koopa: shell on top, head peeking right, two feet
+  // Shell: rows 0-11 (big rounded green shell with diamond pattern)
   const shell = [
+    [_,_,_,_,_,G,G,G,G,G,G,_,_,_,_,_],
     [_,_,_,_,G,G,G,G,G,G,G,G,_,_,_,_],
     [_,_,_,G,G,G,G,G,G,G,G,G,G,_,_,_],
-    [_,_,G,G,G,G,G,G,G,G,G,G,G,G,_,_],
-    [_,G,G,D,L,L,G,G,G,G,L,L,D,G,G,_],
+    [_,_,G,G,D,L,L,G,G,L,L,D,G,G,_,_],
     [_,G,G,D,L,L,L,G,G,L,L,L,D,G,G,_],
-    [G,G,G,D,L,L,L,L,L,L,L,L,D,G,G,G],
+    [_,G,G,D,L,L,L,L,L,L,L,L,D,G,G,_],
     [G,G,G,D,L,L,L,L,L,L,L,L,D,G,G,G],
     [G,G,G,G,D,D,D,D,D,D,D,D,G,G,G,G],
     [_,G,G,G,G,G,G,G,G,G,G,G,G,G,G,_],
-    [_,_,G,G,G,D,G,G,G,G,D,G,G,G,_,_],
+    [_,_,G,G,D,G,G,G,G,G,G,D,G,G,_,_],
     [_,_,_,G,G,G,G,G,G,G,G,G,G,_,_,_],
-    [_,_,_,_,G,G,G,G,G,G,G,G,_,_,_,_],
+    [_,_,_,_,_,G,G,G,G,G,G,_,_,_,_,_],
   ];
-  // Head peeks out to the right (flipped for left-facing)
+  // Head peeks out right from under shell - NES style with visible face, eye, beak
   const head = [
-    [_,_,_,_,_,W,W,W,W,W,W,_,_,_,_,_],
-    [_,_,_,_,W,W,W,W,Y,Y,Y,Y,_,_,_,_],
-    [_,_,_,_,_,_,Y,Y,Y,Y,Y,Y,Y,_,_,_],
-    [_,_,_,_,_,_,Y,Y,W,N,Y,Y,Y,_,_,_],
-    [_,_,_,_,_,_,_,Y,Y,Y,K,K,Y,_,_,_],
-    [_,_,_,_,_,_,_,_,Y,K,K,_,_,_,_,_],
+    [_,_,_,_,_,_,W,W,W,W,_,_,_,_,_,_],
+    [_,_,_,_,_,W,W,W,W,Y,Y,Y,_,_,_,_],
+    [_,_,_,_,_,W,W,W,N,N,W,Y,Y,_,_,_],
+    [_,_,_,_,_,_,W,W,N,W,Y,Y,Y,_,_,_],
+    [_,_,_,_,_,_,Y,Y,Y,Y,K,K,K,_,_,_],
+    [_,_,_,_,_,_,_,Y,Y,K,K,K,_,_,_,_],
   ];
   const feet = [[
-    [_,_,_,_,_,Y,Y,_,_,Y,Y,_,_,_,_,_],
-    [_,_,_,_,Y,Y,_,_,_,_,Y,_,_,_,_,_],
-    [_,_,_,O,O,O,_,_,_,O,O,O,_,_,_,_],
-    [_,_,O,O,O,_,_,_,_,_,O,O,_,_,_,_],
+    [_,_,_,_,_,Y,Y,_,_,_,Y,Y,_,_,_,_],
+    [_,_,_,_,Y,Y,_,_,_,_,_,Y,_,_,_,_],
+    [_,_,_,O,O,O,_,_,_,_,O,O,O,_,_,_],
+    [_,_,O,O,O,O,_,_,_,O,O,O,O,_,_,_],
   ],[
-    [_,_,_,_,_,Y,Y,_,_,Y,Y,_,_,_,_,_],
-    [_,_,_,_,_,_,Y,_,_,Y,Y,_,_,_,_,_],
+    [_,_,_,_,_,Y,Y,_,_,_,Y,Y,_,_,_,_],
+    [_,_,_,_,_,Y,_,_,_,Y,Y,_,_,_,_,_],
     [_,_,_,_,O,O,O,_,_,O,O,O,_,_,_,_],
-    [_,_,_,_,O,O,_,_,_,_,O,O,O,_,_,_],
+    [_,_,_,O,O,O,O,_,_,_,O,O,O,_,_,_],
   ]];
   for (let y = 0; y < 12; y++)
     for (let x = 0; x < 16; x++)
@@ -510,39 +511,39 @@ const koopaShellSprite = createSpriteCanvas(16, 16, cx => {
 
 // --- Red Koopa Sprites (same shape, red palette) ---
 function drawRedKoopaWalk(cx, frame) {
-  const _ = null, R='#D82800', L='#F89868', D='#A81000', Y='#F8D830', W='#F8F8F8', N='#000', K='#D8A038', O='#C84C0C';
+  const _ = null, R='#D82800', L='#F89868', D='#A81000', Y='#F8D878', W='#F8F8F8', N='#000', K='#D8A038', O='#C84C0C';
   const shell = [
+    [_,_,_,_,_,R,R,R,R,R,R,_,_,_,_,_],
     [_,_,_,_,R,R,R,R,R,R,R,R,_,_,_,_],
     [_,_,_,R,R,R,R,R,R,R,R,R,R,_,_,_],
-    [_,_,R,R,R,R,R,R,R,R,R,R,R,R,_,_],
-    [_,R,R,D,L,L,R,R,R,R,L,L,D,R,R,_],
+    [_,_,R,R,D,L,L,R,R,L,L,D,R,R,_,_],
     [_,R,R,D,L,L,L,R,R,L,L,L,D,R,R,_],
-    [R,R,R,D,L,L,L,L,L,L,L,L,D,R,R,R],
+    [_,R,R,D,L,L,L,L,L,L,L,L,D,R,R,_],
     [R,R,R,D,L,L,L,L,L,L,L,L,D,R,R,R],
     [R,R,R,R,D,D,D,D,D,D,D,D,R,R,R,R],
     [_,R,R,R,R,R,R,R,R,R,R,R,R,R,R,_],
-    [_,_,R,R,R,D,R,R,R,R,D,R,R,R,_,_],
+    [_,_,R,R,D,R,R,R,R,R,R,D,R,R,_,_],
     [_,_,_,R,R,R,R,R,R,R,R,R,R,_,_,_],
-    [_,_,_,_,R,R,R,R,R,R,R,R,_,_,_,_],
+    [_,_,_,_,_,R,R,R,R,R,R,_,_,_,_,_],
   ];
   const head = [
-    [_,_,_,_,_,W,W,W,W,W,W,_,_,_,_,_],
-    [_,_,_,_,W,W,W,W,Y,Y,Y,Y,_,_,_,_],
-    [_,_,_,_,_,_,Y,Y,Y,Y,Y,Y,Y,_,_,_],
-    [_,_,_,_,_,_,Y,Y,W,N,Y,Y,Y,_,_,_],
-    [_,_,_,_,_,_,_,Y,Y,Y,K,K,Y,_,_,_],
-    [_,_,_,_,_,_,_,_,Y,K,K,_,_,_,_,_],
+    [_,_,_,_,_,_,W,W,W,W,_,_,_,_,_,_],
+    [_,_,_,_,_,W,W,W,W,Y,Y,Y,_,_,_,_],
+    [_,_,_,_,_,W,W,W,N,N,W,Y,Y,_,_,_],
+    [_,_,_,_,_,_,W,W,N,W,Y,Y,Y,_,_,_],
+    [_,_,_,_,_,_,Y,Y,Y,Y,K,K,K,_,_,_],
+    [_,_,_,_,_,_,_,Y,Y,K,K,K,_,_,_,_],
   ];
   const feet = [[
-    [_,_,_,_,_,Y,Y,_,_,Y,Y,_,_,_,_,_],
-    [_,_,_,_,Y,Y,_,_,_,_,Y,_,_,_,_,_],
-    [_,_,_,O,O,O,_,_,_,O,O,O,_,_,_,_],
-    [_,_,O,O,O,_,_,_,_,_,O,O,_,_,_,_],
+    [_,_,_,_,_,Y,Y,_,_,_,Y,Y,_,_,_,_],
+    [_,_,_,_,Y,Y,_,_,_,_,_,Y,_,_,_,_],
+    [_,_,_,O,O,O,_,_,_,_,O,O,O,_,_,_],
+    [_,_,O,O,O,O,_,_,_,O,O,O,O,_,_,_],
   ],[
-    [_,_,_,_,_,Y,Y,_,_,Y,Y,_,_,_,_,_],
-    [_,_,_,_,_,_,Y,_,_,Y,Y,_,_,_,_,_],
+    [_,_,_,_,_,Y,Y,_,_,_,Y,Y,_,_,_,_],
+    [_,_,_,_,_,Y,_,_,_,Y,Y,_,_,_,_,_],
     [_,_,_,_,O,O,O,_,_,O,O,O,_,_,_,_],
-    [_,_,_,_,O,O,_,_,_,_,O,O,O,_,_,_],
+    [_,_,_,O,O,O,O,_,_,_,O,O,O,_,_,_],
   ]];
   for (let y = 0; y < 12; y++)
     for (let x = 0; x < 16; x++)
@@ -1493,9 +1494,12 @@ function buildLevel(data) {
     }
   }
 
-  // Brick blocks: [x, y]
+  // Brick blocks: [x, y] or [x, y, item] for bricks containing items
   if (data.bricks) {
-    for (const [x, y] of data.bricks) grid[y][x] = BRICK;
+    for (const b of data.bricks) {
+      grid[b[1]][b[0]] = BRICK;
+      if (b[2]) qBlocks.push([b[0], b[1], b[2]]); // hidden item in brick
+    }
   }
 
   // Hard blocks: [x, y] or rows [startX, endX, y]
@@ -1629,16 +1633,16 @@ const LEVEL_1_1 = {
   bgColor: '#6b8cff',
   bgType: 'overworld',
   playerStart: [3, 11],
+  piranhas: false,
 
   groundGaps: [[69, 71], [86, 88], [153, 155]],
 
   pipes: [[28, 2], [38, 3], [46, 4], [57, 2], [163, 2]],
 
   questions: [
-    [16, 9, 'coin'],
-    [21, 9, 'coin'], [22, 5, 'coin'], [23, 9, 'mushroom'], [25, 9, 'coin'],
+    [16, 9, 'mushroom'],
+    [21, 9, 'coin'], [22, 5, 'coin'], [23, 9, 'coin'], [25, 9, 'coin'],
     [78, 9, 'mushroom'],
-    [94, 5, 'star'],
     [106, 9, 'coin'], [109, 9, 'coin'], [109, 5, 'mushroom'], [112, 9, 'coin'],
     [129, 9, 'coin'], [130, 9, 'coin'],
     [170, 9, 'coin']
@@ -1649,7 +1653,7 @@ const LEVEL_1_1 = {
     [77, 9], [79, 9],
     [80, 5], [81, 5], [82, 5], [83, 5], [84, 5], [85, 5], [86, 5], [87, 5],
     [91, 5], [92, 5], [93, 5],
-    [94, 9], [95, 9], [100, 9],
+    [94, 9, 'star'], [95, 9], [100, 9],
     [101, 5], [102, 5],
     [106, 5], [107, 5], [108, 5],
     [118, 9],
@@ -1667,21 +1671,19 @@ const LEVEL_1_1 = {
     [140, 'down', 4],
     [148, 'up', 4],
     [152, 'down', 4],
-    [161, 'up', 4],
     [181, 'up', 8]
   ],
 
   flagX: 198,
 
   entities: [
-    ['goomba', 22, 12], ['goomba', 40, 12],
+    ['goomba', 22, 12],
+    ['goomba', 40, 12],
     ['goomba', 51, 12], ['goomba', 52.5, 12],
-    ['paratroopa', 70, 6],
     ['goomba', 80, 4], ['goomba', 82, 4],
     ['goomba', 97, 12], ['goomba', 98.5, 12],
     ['koopa', 107, 11],
     ['goomba', 114, 12], ['goomba', 115.5, 12],
-    ['redkoopa', 120, 11],
     ['goomba', 124, 12], ['goomba', 125.5, 12],
     ['goomba', 128, 12], ['goomba', 129.5, 12],
     ['goomba', 174, 12], ['goomba', 175.5, 12]
@@ -1709,15 +1711,30 @@ const LEVEL_1_2 = {
     [120, 9, 'coin'], [125, 9, 'mushroom']
   ],
 
+  // NES 1-2: long brick ceiling runs for running on top
   bricks: [
+    // Low row (row 9) scattered bricks
     [11, 9], [13, 9], [14, 9], [15, 9],
     [25, 9], [26, 9], [27, 9], [28, 9], [29, 9], [31, 9],
     [49, 9], [51, 9],
     [54, 9], [56, 9],
-    [70, 5], [71, 5], [73, 5], [74, 5],
     [84, 9], [86, 9],
     [99, 9], [101, 9],
-    [119, 9], [121, 9], [124, 9], [126, 9]
+    [119, 9], [121, 9], [124, 9], [126, 9],
+    // HIGH CEILING BRICK RUNS (row 3-4) - NES 1-2 signature feature
+    // Players can run on top of these to skip large sections
+    [8, 3], [9, 3], [10, 3], [11, 3], [12, 3], [13, 3], [14, 3], [15, 3], [16, 3],
+    [20, 3], [21, 3], [22, 3], [23, 3], [24, 3], [25, 3], [26, 3], [27, 3], [28, 3], [29, 3], [30, 3], [31, 3], [32, 3], [33, 3], [34, 3], [35, 3],
+    [40, 3], [41, 3], [42, 3], [43, 3], [44, 3], [45, 3], [46, 3], [47, 3], [48, 3], [49, 3], [50, 3], [51, 3], [52, 3], [53, 3], [54, 3], [55, 3],
+    [58, 3], [59, 3], [60, 3], [61, 3], [62, 3], [63, 3], [64, 3], [65, 3], [66, 3], [67, 3], [68, 3], [69, 3], [70, 3],
+    [74, 3], [75, 3], [76, 3], [77, 3], [78, 3], [79, 3], [80, 3], [81, 3], [82, 3], [83, 3], [84, 3], [85, 3], [86, 3], [87, 3], [88, 3],
+    [92, 3], [93, 3], [94, 3], [95, 3], [96, 3], [97, 3], [98, 3], [99, 3], [100, 3], [101, 3], [102, 3],
+    [106, 3], [107, 3], [108, 3], [109, 3], [110, 3], [111, 3], [112, 3], [113, 3], [114, 3], [115, 3],
+    // Row 5 mid-level bricks
+    [70, 5], [71, 5], [73, 5], [74, 5],
+    [38, 5], [39, 5], [40, 5], [41, 5], [42, 5],
+    [62, 5], [63, 5], [64, 5], [65, 5],
+    [95, 5], [96, 5], [97, 5], [98, 5],
   ],
 
   platforms: [
@@ -1741,71 +1758,94 @@ const LEVEL_1_2 = {
   ]
 };
 
-// ── Level 1-3: Athletic / Platform ──────────────────────────
+// ── Level 1-3: Athletic / Treetop ──────────────────────────
+// NES 1-3: Ground with tree platforms at varying heights, koopa-heavy, organic layout
 const LEVEL_1_3 = {
   name: '1-3',
-  width: 180,
+  width: 170,
   bgColor: '#6b8cff',
   bgType: 'overworld',
   playerStart: [3, 11],
 
+  // Organic gaps - not evenly spaced, varying widths like NES
   groundGaps: [
-    [12, 16], [23, 28], [35, 40], [48, 53],
-    [60, 65], [72, 78], [85, 90], [97, 102],
-    [110, 115], [122, 127], [135, 140], [148, 153]
+    [15, 19],    // first gap (small)
+    [26, 32],    // wider gap
+    [40, 44],    // medium
+    [52, 58],    // wide gap with high platforms
+    [65, 69],    // medium
+    [77, 83],    // wide section
+    [91, 95],    // medium
+    [103, 110],  // large gap
+    [118, 122],  // medium
+    [130, 135],  // medium-wide
+    [143, 147],  // medium
   ],
 
+  // Varied height platforms - NES 1-3 has organic, non-repeating layout
   platforms: [
-    [12, 10, 5], [18, 8, 3],
-    [23, 11, 4], [28, 8, 3],
-    [35, 10, 5], [41, 7, 3],
-    [48, 10, 4], [53, 8, 3],
-    [60, 11, 4], [66, 7, 3],
-    [72, 10, 5], [78, 8, 3],
-    [85, 11, 4], [91, 7, 3],
-    [97, 10, 4], [103, 8, 3],
-    [110, 11, 5], [116, 7, 3],
-    [122, 10, 4], [128, 8, 3],
-    [135, 10, 5], [141, 7, 3],
-    [148, 10, 4], [154, 8, 3]
+    // Section 1: intro platforms
+    [15, 10, 3], [19, 8, 2],
+    // Section 2: stepping up
+    [26, 11, 3], [30, 9, 2], [33, 7, 3],
+    // Section 3: high-low alternating
+    [40, 10, 3], [44, 6, 2],
+    // Section 4: long gap with stepping stones
+    [52, 11, 2], [55, 9, 2], [58, 7, 2],
+    // Section 5: medium platforms
+    [65, 10, 3], [69, 8, 2],
+    // Section 6: wide gap area - tricky jumps
+    [77, 11, 2], [80, 8, 2], [83, 10, 3],
+    // Section 7: rising platforms
+    [91, 11, 3], [95, 8, 2],
+    // Section 8: large gap - highest challenge
+    [103, 10, 2], [106, 7, 2], [109, 10, 2],
+    // Section 9: easing down
+    [118, 9, 3], [122, 11, 2],
+    // Section 10: final challenges
+    [130, 10, 2], [133, 7, 3],
+    [143, 9, 3], [147, 11, 2],
   ],
 
+  // Few ? blocks - NES 1-3 focuses on platforming, not powerups
   questions: [
-    [14, 7, 'coin'], [25, 7, 'mushroom'],
-    [37, 7, 'coin'], [50, 7, 'coin'],
-    [62, 7, 'star'], [74, 7, 'coin'],
-    [99, 7, 'mushroom'], [124, 7, 'coin'],
-    [137, 7, 'coin'], [150, 7, 'coin']
+    [17, 7, 'mushroom'],
+    [55, 6, 'coin'],
+    [81, 5, 'star'],
+    [107, 4, 'mushroom'],
+    [133, 4, 'coin'],
   ],
 
   bricks: [
-    [13, 7], [15, 7],
-    [24, 7], [26, 7],
-    [36, 7], [38, 7],
-    [49, 7], [51, 7],
-    [61, 7], [63, 7],
-    [73, 7], [75, 7],
-    [98, 7], [100, 7],
-    [123, 7], [125, 7],
-    [136, 7], [138, 7],
-    [149, 7], [151, 7]
+    [16, 7], [18, 7],
+    [54, 6], [56, 6],
+    [80, 5], [82, 5],
+    [106, 4], [108, 4],
   ],
 
-  stairs: [[160, 'up', 6]],
+  stairs: [[155, 'up', 8]],
 
-  flagX: 172,
+  flagX: 165,
 
+  // NES 1-3 is koopa-heavy with paratroopas - few goombas
   entities: [
-    ['koopa', 15, 8.6], ['goomba', 30, 12],
-    ['redkoopa', 38, 8.6], ['goomba', 45, 12],
-    ['goomba', 56, 12], ['paratroopa', 63, 5.6],
-    ['goomba', 70, 12], ['koopa', 75, 6.6],
-    ['goomba', 82, 12], ['paratroopa', 88, 5],
-    ['goomba', 94, 12],
-    ['redkoopa', 100, 6.6], ['goomba', 107, 12],
-    ['goomba', 119, 12], ['paratroopa', 125, 5.6],
-    ['goomba', 132, 12], ['goomba', 145, 12],
-    ['koopa', 151, 6.6], ['goomba', 157, 12]
+    ['redkoopa', 10, 11],
+    ['koopa', 17, 8.6],
+    ['paratroopa', 28, 7],
+    ['redkoopa', 35, 11],
+    ['koopa', 42, 8.6],
+    ['paratroopa', 54, 7],
+    ['redkoopa', 62, 11],
+    ['koopa', 67, 8.6],
+    ['paratroopa', 79, 6],
+    ['redkoopa', 86, 11],
+    ['koopa', 93, 9.6],
+    ['paratroopa', 105, 6],
+    ['redkoopa', 115, 11],
+    ['koopa', 120, 7.6],
+    ['paratroopa', 132, 5],
+    ['redkoopa', 140, 11],
+    ['koopa', 145, 7.6],
   ]
 };
 
@@ -1841,33 +1881,9 @@ const LEVEL_1_4 = {
     [74, 76],
   ],
 
-  // === QUESTION BLOCKS ===
-  questions: [
-    // Section A: welcome mushroom
-    [8, 9, 'mushroom'],
-    // Section B: coin over lava pit
-    [21, 7, 'coin'],
-    [28, 7, 'coin'],
-    // Section C: hidden star in maze
-    [45, 5, 'star'],
-    // Section D: mushroom for boss prep
-    [57, 5, 'mushroom'],
-    // Section E: last coin
-    [78, 9, 'coin'],
-  ],
-
-  // === BRICKS ===
-  bricks: [
-    // Section A
-    [7, 9], [9, 9],
-    // Section C: breakable walls in maze
-    [39, 7], [40, 7], [41, 7],
-    [47, 9], [48, 9],
-    // Section D
-    [58, 9], [59, 9],
-    // Section E: brick ceiling
-    [77, 9], [79, 9],
-  ],
+  // NES 1-4 castle has NO question blocks and NO bricks
+  questions: [],
+  bricks: [],
 
   // === HARD BLOCKS (castle walls, maze structure) ===
   hardBlocks: [
@@ -1923,10 +1939,7 @@ const LEVEL_1_4 = {
     [74, 11, 3],    // over last pit
   ],
 
-  // === MULTI-COIN BRICKS ===
-  multiCoinBricks: [
-    [47, 9, 8],  // hidden coins in maze
-  ],
+  multiCoinBricks: [],
 
   // === BOSS ARENA ===
   // col 83: wall door, col 84-100: bridge area, col 101-102: axe, col 103+: safe zone
@@ -1945,23 +1958,19 @@ const LEVEL_1_4 = {
   pipes: [],
   stairs: [],
 
-  // === ENEMIES ===
+  // === ENEMIES (NES 1-4: only buzzy beetles, no goombas/koopas) ===
   entities: [
-    // Section A: intro enemies
-    ['goomba', 10, 12], ['buzzy', 13, 12],
+    // Section A: intro
+    ['buzzy', 10, 12], ['buzzy', 15, 12],
     // Section B: guarding lava pits
-    ['buzzy', 19, 12], ['goomba', 25, 12],
-    ['koopa', 31, 10.6],
-    // Section C: maze enemies
-    ['goomba', 38, 8], ['buzzy', 40, 8],        // upper path
-    ['goomba', 47, 12], ['goomba', 51, 12],     // lower path
-    ['koopa', 44, 8],                            // koopa on middle floor
+    ['buzzy', 19, 12], ['buzzy', 25, 12],
+    // Section C: maze
+    ['buzzy', 38, 8], ['buzzy', 41, 8],
+    ['buzzy', 47, 12], ['buzzy', 51, 12],
     // Section D: vertical room
-    ['buzzy', 62, 9], ['goomba', 66, 6],
-    ['koopa', 69, 7.6],
+    ['buzzy', 62, 9], ['buzzy', 67, 6],
     // Section E: final corridor
-    ['goomba', 77, 12], ['buzzy', 78, 12],
-    ['goomba', 80, 12],
+    ['buzzy', 77, 12], ['buzzy', 80, 12],
   ],
 };
 
@@ -2641,6 +2650,9 @@ function hitBlockBelow(tx, ty) {
     bumpedBlocks.push({tx, ty, offsetY: 0, timer: 0, maxTimer: 12});
   } else if (tile === BRICK) {
     const key = tx+','+ty;
+    // Check if this brick has a hidden item (not the default coin fallback)
+    const brickItemQ = level.qBlocks ? level.qBlocks.find(q => q[0]===tx && q[1]===ty) : null;
+    const brickItem = brickItemQ ? brickItemQ[2] : null;
     if (multiCoinBlocks[key] > 0) {
       // Multi-coin brick
       multiCoinBlocks[key]--;
@@ -2648,19 +2660,17 @@ function hitBlockBelow(tx, ty) {
       bumpedBlocks.push({tx, ty, offsetY: 0, timer: 0, maxTimer: 12});
       bumpEntitiesOnTile(tx, ty);
       if (multiCoinBlocks[key] <= 0) level.grid[ty][tx] = USED;
+    } else if (brickItem) {
+      // Brick contains a hidden item (like star)
+      level.grid[ty][tx] = USED;
+      spawnItem(tx, ty, brickItem);
+      bumpedBlocks.push({tx, ty, offsetY: 0, timer: 0, maxTimer: 12});
+      bumpEntitiesOnTile(tx, ty);
     } else if (player.power > 0) {
-      // Some bricks contain hidden coins (random 15% chance)
-      const rng = ((tx * 7 + ty * 13) % 100);
-      if (rng < 15) {
-        spawnItem(tx, ty, 'coin');
-        level.grid[ty][tx] = USED;
-        bumpedBlocks.push({tx, ty, offsetY: 0, timer: 0, maxTimer: 12});
-      } else {
-        level.grid[ty][tx] = EMPTY;
-        sfxBreak(); score += 50;
-        addBrickParticles(tx*TILE, ty*TILE);
-        screenShake = 4;
-      }
+      level.grid[ty][tx] = EMPTY;
+      sfxBreak(); score += 50;
+      addBrickParticles(tx*TILE, ty*TILE);
+      screenShake = 4;
       bumpEntitiesOnTile(tx, ty);
     } else {
       sfxBump();
