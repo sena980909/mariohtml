@@ -4090,29 +4090,49 @@ function drawTitle() {
   drawCloud(50*S, 40*S, 3);
   drawCloud(300*S, 25*S, 2);
 
-  // Title block with outline
+  // Title block - NES style pixel text
   ctx.textAlign = 'center';
-  const titleY1 = canvas.height*0.20, titleY2 = canvas.height*0.33;
-  // Black outline
-  ctx.font = `bold ${24*S}px monospace`;
-  ctx.fillStyle = '#000';
-  for (let ox = -2; ox <= 2; ox++) for (let oy = -2; oy <= 2; oy++) {
-    ctx.fillText('SUPER', canvas.width/2 + ox*S, titleY1 + oy*S);
-    ctx.fillText('MARIO BROS', canvas.width/2 + ox*S, titleY2 + oy*S);
-  }
-  // Red fill with yellow border effect
+  ctx.textBaseline = 'middle';
+  const titleY1 = canvas.height*0.18, titleY2 = canvas.height*0.30;
+
+  // Draw each title word as block letters with shadow
+  const drawBlockText = (text, x, y, size, color, shadowColor) => {
+    ctx.font = `bold ${size}px monospace`;
+    // Shadow
+    ctx.fillStyle = shadowColor;
+    ctx.fillText(text, x + 3*S, y + 3*S);
+    // Main color
+    ctx.fillStyle = color;
+    ctx.fillText(text, x, y);
+  };
+
+  // "SUPER" - white with dark shadow
+  drawBlockText('SUPER', canvas.width/2, titleY1, Math.floor(14*S), '#F8F8F8', '#880000');
+
+  // "MARIO BROS." - large red/gold NES logo style
+  // Background block (like the NES box)
+  const logoW = 300*S, logoH = 60*S;
+  const logoX = canvas.width/2 - logoW/2, logoY = titleY2 - logoH/2;
+  ctx.fillStyle = '#C00000';
+  ctx.fillRect(logoX, logoY, logoW, logoH);
+  ctx.strokeStyle = '#F8D830';
+  ctx.lineWidth = 3*S;
+  ctx.strokeRect(logoX, logoY, logoW, logoH);
+
+  ctx.font = `bold ${Math.floor(20*S)}px monospace`;
+  // Shadow
+  ctx.fillStyle = '#600000';
+  ctx.fillText('MARIO BROS.', canvas.width/2 + 2*S, titleY2 + 2*S);
+  // Main text
   ctx.fillStyle = '#F8D830';
-  ctx.fillText('SUPER', canvas.width/2, titleY1);
-  ctx.fillText('MARIO BROS', canvas.width/2, titleY2);
-  ctx.font = `bold ${22*S}px monospace`;
-  ctx.fillStyle = '#E00020';
-  ctx.fillText('SUPER', canvas.width/2, titleY1);
-  ctx.fillText('MARIO BROS', canvas.width/2, titleY2);
+  ctx.fillText('MARIO BROS.', canvas.width/2, titleY2);
 
   // Subtitle
-  ctx.fillStyle = '#F8D830';
-  ctx.font = `bold ${7*S}px monospace`;
-  ctx.fillText('HTML5 EDITION', canvas.width/2, canvas.height*0.39);
+  ctx.fillStyle = '#F8F8F8';
+  ctx.font = `bold ${Math.floor(6*S)}px monospace`;
+  ctx.fillText('- HTML5 EDITION -', canvas.width/2, titleY2 + logoH/2 + 10*S);
+
+  ctx.textBaseline = 'alphabetic';
 
   // Animated Mario walking on title screen
   const walkFrame = Math.floor(globalTimer/8) % 3;
@@ -4126,28 +4146,34 @@ function drawTitle() {
 
   // Big Mario sprite in center
   const mSprite = marioSprites.normal.big[0].right;
-  ctx.drawImage(mSprite, canvas.width/2 - 8*S, canvas.height*0.43, 16*S*2, 32*S*2);
+  ctx.drawImage(mSprite, canvas.width/2 - 8*S, canvas.height*0.44, 16*S*2, 32*S*2);
+
+  // Coin and question block decorations
+  const qf2 = Math.floor(globalTimer/15) % 4;
+  ctx.drawImage(questionSprites[qf2], canvas.width/2 - 60*S, canvas.height*0.50, 16*S, 16*S);
+  ctx.drawImage(questionSprites[qf2], canvas.width/2 + 44*S, canvas.height*0.50, 16*S, 16*S);
 
   // Blink prompt
+  ctx.textAlign = 'center';
   const blink = Math.sin(globalTimer * 0.08) > 0;
   if (blink) {
-    ctx.fillStyle = '#FFF';
-    ctx.font = `bold ${9*S}px monospace`;
-    ctx.fillText('PRESS SPACE TO START', canvas.width/2, canvas.height*0.72);
+    ctx.fillStyle = '#F8D830';
+    ctx.font = `bold ${Math.floor(8*S)}px monospace`;
+    ctx.fillText('PRESS SPACE TO START', canvas.width/2, canvas.height*0.73);
   }
 
   // High score
   if (highScore > 0) {
-    ctx.fillStyle = '#AAA';
-    ctx.font = `${6*S}px monospace`;
-    ctx.fillText(`HIGH SCORE: ${String(highScore).padStart(6,'0')}`, canvas.width/2, canvas.height*0.78);
+    ctx.fillStyle = '#F8F8F8';
+    ctx.font = `${Math.floor(6*S)}px monospace`;
+    ctx.fillText(`HIGH SCORE: ${String(highScore).padStart(6,'0')}`, canvas.width/2, canvas.height*0.79);
   }
 
   // Controls
-  ctx.fillStyle = 'rgba(255,255,255,0.7)';
-  ctx.font = `${5.5*S}px monospace`;
-  ctx.fillText('\u2190\u2192 MOVE  SPACE JUMP  SHIFT/Z/X RUN/FIRE', canvas.width/2, canvas.height*0.86);
-  ctx.fillText('P PAUSE  ESC PAUSE  \u2193 CROUCH', canvas.width/2, canvas.height*0.92);
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.font = `${Math.floor(5*S)}px monospace`;
+  ctx.fillText('\u2190\u2192 MOVE   SPACE JUMP   Z/X RUN/FIRE', canvas.width/2, canvas.height*0.87);
+  ctx.fillText('P PAUSE   \u2193 CROUCH', canvas.width/2, canvas.height*0.92);
 }
 
 function drawGameOver() {
