@@ -2462,8 +2462,18 @@ function checkPlayerBowserCollision() {
 // COLLISION
 // ============================================================
 function isSolid(tx, ty) {
-  if (tx < 0 || tx >= level.width || ty >= level.height) return true;
+  if (tx < 0 || tx >= level.width) return true;
   if (ty < 0) return false;
+  // Below map: check if ground exists at this column (bottom row)
+  // If no ground tile at bottom, this is a pit - not solid (player falls to death)
+  if (ty >= level.height) {
+    const bottomRow = level.height - 1;
+    if (bottomRow >= 0 && tx >= 0 && tx < level.width) {
+      const bt = level.grid[bottomRow][tx];
+      return bt === GROUND || bt === HARD;
+    }
+    return true;
+  }
   const t = level.grid[ty][tx];
   return t===GROUND||t===BRICK||t===QUESTION||t===USED||t===HARD||
          t===PIPE_TL||t===PIPE_TR||t===PIPE_BL||t===PIPE_BR;
